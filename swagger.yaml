@@ -4,17 +4,17 @@ schemes:
   - http
   - https
 
-host: localhost:8085
+host: localhost:8080
 basePath: /swagger-example/v1
 
 info:
   version: 1.0.0
   title: Swagger Example
   description: Swagger example from alura
-  termsOfService: http://localhost:8085/swagger-example/v1/user-term
+  termsOfService: http://localhost:8080/swagger-example/v1/user-term
   contact:
     name: Suport
-    url: http://localhost:8085/swagger-example/v1/suport
+    url: http://localhost:8080/swagger-example/v1/suport
     email: suport@swagger.example.com
 
 consumes:
