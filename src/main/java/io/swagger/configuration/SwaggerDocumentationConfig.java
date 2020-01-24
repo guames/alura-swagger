@@ -21,7 +21,7 @@ public class SwaggerDocumentationConfig {
             .description("Swagger example from alura")
             .license("")
             .licenseUrl("http://unlicense.org")
-            .termsOfServiceUrl("http://localhost:8085/swagger-example/v1/suport")
+            .termsOfServiceUrl("http://localhost:8080/swagger-example/v1/suport")
             .version("1.0.0")
             .contact(new Contact("","", "suport@swagger.example.com"))
             .build();

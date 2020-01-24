@@ -5,40 +5,53 @@
  */
 package io.swagger.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.*;
 import io.swagger.model.Address;
 import io.swagger.model.User;
-import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.util.Optional;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-01-24T14:48:34.340Z")
 
 @Api(value = "users", description = "the users API")
 @RequestMapping(value = "/swagger-example/v1")
 public interface UsersApi {
 
+    Logger log = LoggerFactory.getLogger(UsersApi.class);
+
+    default Optional<ObjectMapper> getObjectMapper() {
+        return Optional.empty();
+    }
+
+    default Optional<HttpServletRequest> getRequest() {
+        return Optional.empty();
+    }
+
+    default Optional<String> getAcceptHeader() {
+        return getRequest().map(r -> r.getHeader("Accept"));
+    }
+
     @ApiOperation(value = "Create User.", nickname = "createUser", notes = "Create a new User.", response = User.class, authorizations = {
-        @Authorization(value = "BasicAuth")
+            @Authorization(value = "BasicAuth")
     }, tags={ "User", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Create Success", response = User.class),
-        @ApiResponse(code = 400, message = "Invalid Request"),
-        @ApiResponse(code = 500, message = "Server Error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Create Success", response = User.class),
+            @ApiResponse(code = 400, message = "Invalid Request"),
+            @ApiResponse(code = 500, message = "Server Error") })
     @RequestMapping(value = "/users",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.POST)
     default ResponseEntity<User> createUser(@ApiParam(value = "" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "" ,required=true )  @Valid @RequestBody User user_) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -57,17 +70,17 @@ public interface UsersApi {
 
 
     @ApiOperation(value = "Create user address", nickname = "createUserAddress", notes = "Create address from especific user", authorizations = {
-        @Authorization(value = "BasicAuth")
+            @Authorization(value = "BasicAuth")
     }, tags={ "Address", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 400, message = "Invalid Request"),
-        @ApiResponse(code = 401, message = "Unauthorized Request"),
-        @ApiResponse(code = 500, message = "Server Error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Invalid Request"),
+            @ApiResponse(code = 401, message = "Unauthorized Request"),
+            @ApiResponse(code = 500, message = "Server Error") })
     @RequestMapping(value = "/users/{id}/addresses",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.POST)
     default ResponseEntity<Void> createUserAddress(@ApiParam(value = "" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "",required=true) @PathVariable("id") Long id,@ApiParam(value = ""  )  @Valid @RequestBody Address address_) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
@@ -78,17 +91,17 @@ public interface UsersApi {
 
 
     @ApiOperation(value = "Delete user", nickname = "deleteUser", notes = "Delete especific user", authorizations = {
-        @Authorization(value = "BasicAuth")
+            @Authorization(value = "BasicAuth")
     }, tags={ "User", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted Success"),
-        @ApiResponse(code = 400, message = "Invalid Request"),
-        @ApiResponse(code = 401, message = "Unauthorized Request"),
-        @ApiResponse(code = 500, message = "Server Error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Deleted Success"),
+            @ApiResponse(code = 400, message = "Invalid Request"),
+            @ApiResponse(code = 401, message = "Unauthorized Request"),
+            @ApiResponse(code = 500, message = "Server Error") })
     @RequestMapping(value = "/users/{id}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.DELETE)
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.DELETE)
     default ResponseEntity<Void> deleteUser(@ApiParam(value = "" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "",required=true) @PathVariable("id") Long id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
@@ -99,17 +112,17 @@ public interface UsersApi {
 
 
     @ApiOperation(value = "Delete user address", nickname = "deleteUserAddress", notes = "Delete address from especific user", authorizations = {
-        @Authorization(value = "BasicAuth")
+            @Authorization(value = "BasicAuth")
     }, tags={ "Address", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted Success"),
-        @ApiResponse(code = 400, message = "Invalid Request"),
-        @ApiResponse(code = 401, message = "Unauthorized Request"),
-        @ApiResponse(code = 500, message = "Server Error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Deleted Success"),
+            @ApiResponse(code = 400, message = "Invalid Request"),
+            @ApiResponse(code = 401, message = "Unauthorized Request"),
+            @ApiResponse(code = 500, message = "Server Error") })
     @RequestMapping(value = "/users/{userId}/addresses/{addressId}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.DELETE)
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.DELETE)
     default ResponseEntity<Void> deleteUserAddress(@ApiParam(value = "" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "",required=true) @PathVariable("userId") Long userId,@ApiParam(value = "",required=true) @PathVariable("addressId") Long addressId) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
@@ -120,17 +133,17 @@ public interface UsersApi {
 
 
     @ApiOperation(value = "Get user address", nickname = "getUserAddress", notes = "Get address from especific user", response = Address.class, authorizations = {
-        @Authorization(value = "BasicAuth")
+            @Authorization(value = "BasicAuth")
     }, tags={ "Address", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK", response = Address.class),
-        @ApiResponse(code = 400, message = "Invalid Request"),
-        @ApiResponse(code = 401, message = "Unauthorized Request"),
-        @ApiResponse(code = 500, message = "Server Error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Address.class),
+            @ApiResponse(code = 400, message = "Invalid Request"),
+            @ApiResponse(code = 401, message = "Unauthorized Request"),
+            @ApiResponse(code = 500, message = "Server Error") })
     @RequestMapping(value = "/users/{id}/addresses",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.GET)
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.GET)
     default ResponseEntity<Address> getUserAddress(@ApiParam(value = "",required=true) @PathVariable("id") Long id,@NotNull @ApiParam(value = "", required = true, allowableValues = "home, company") @Valid @RequestParam(value = "type", required = true) String type,@ApiParam(value = "" ,required=true )  @Valid @RequestBody Address address) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -149,17 +162,17 @@ public interface UsersApi {
 
 
     @ApiOperation(value = "Retrieve users.", nickname = "getUsers", notes = "Retrieve all users.", response = User.class, authorizations = {
-        @Authorization(value = "BasicAuth")
+            @Authorization(value = "BasicAuth")
     }, tags={ "User", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK", response = User.class),
-        @ApiResponse(code = 400, message = "Invalid Request"),
-        @ApiResponse(code = 401, message = "Unauthorized Request"),
-        @ApiResponse(code = 500, message = "Server Error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = User.class),
+            @ApiResponse(code = 400, message = "Invalid Request"),
+            @ApiResponse(code = 401, message = "Unauthorized Request"),
+            @ApiResponse(code = 500, message = "Server Error") })
     @RequestMapping(value = "/users",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.GET)
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.GET)
     default ResponseEntity<User> getUsers() {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -178,17 +191,17 @@ public interface UsersApi {
 
 
     @ApiOperation(value = "Update user.", nickname = "updateUser", notes = "Update especific user", response = User.class, authorizations = {
-        @Authorization(value = "BasicAuth")
+            @Authorization(value = "BasicAuth")
     }, tags={ "User", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Update Success", response = User.class),
-        @ApiResponse(code = 400, message = "Invalid Request"),
-        @ApiResponse(code = 401, message = "Unauthorized Request"),
-        @ApiResponse(code = 500, message = "Server Error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Update Success", response = User.class),
+            @ApiResponse(code = 400, message = "Invalid Request"),
+            @ApiResponse(code = 401, message = "Unauthorized Request"),
+            @ApiResponse(code = 500, message = "Server Error") })
     @RequestMapping(value = "/users/{id}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.PUT)
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.PUT)
     default ResponseEntity<User> updateUser(@ApiParam(value = "" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "",required=true) @PathVariable("id") Long id,@ApiParam(value = "" ,required=true )  @Valid @RequestBody User user_) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -207,17 +220,17 @@ public interface UsersApi {
 
 
     @ApiOperation(value = "Update user address", nickname = "updateUserAddress", notes = "Update address from especific user", authorizations = {
-        @Authorization(value = "BasicAuth")
+            @Authorization(value = "BasicAuth")
     }, tags={ "Address", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Update Success"),
-        @ApiResponse(code = 400, message = "Invalid Request"),
-        @ApiResponse(code = 401, message = "Unauthorized Request"),
-        @ApiResponse(code = 500, message = "Server Error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Update Success"),
+            @ApiResponse(code = 400, message = "Invalid Request"),
+            @ApiResponse(code = 401, message = "Unauthorized Request"),
+            @ApiResponse(code = 500, message = "Server Error") })
     @RequestMapping(value = "/users/{userId}/addresses/{addressId}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.PUT)
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.PUT)
     default ResponseEntity<Void> updateUserAddress(@ApiParam(value = "" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "",required=true) @PathVariable("userId") Long userId,@ApiParam(value = "",required=true) @PathVariable("addressId") Long addressId,@ApiParam(value = ""  )  @Valid @RequestBody Address address_) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
